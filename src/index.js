@@ -2,14 +2,17 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+//Then change Square’s render method to show that value
 class Square extends React.Component {
+  //Constructor initilaized value of state is 1
   constructor() {
     super();
     this.state = {
-      value: null,
+      value: 1,
     };
   }
 
+//render Square's state value inside the square.
   render() {
     return (
       <button className="square" onClick={() => this.setState({value: 'X'})}>
@@ -19,17 +22,40 @@ class Square extends React.Component {
   }
 }
 
+// In Board’s renderSquare method, change the code to pass a value prop to the Square:
 class Board extends React.Component {
+  //Construtor, initialze the value of Broad's state to array named squares.
   constructor(props) {
     super(props);
     this.state = {
+      //And each elements of squares array is null
       squares: Array(9).fill(null),
     };
   }
 
-  renderSquare(i) {
-    return <Square value={i} />;
+  //
+  handleClick(i) {
+    //slice the squares array from broad's state
+    const squares = this.state.squares.slice();
+    //define clicked/selected squares element with 'X'
+    squares[i] = 'X';
+    //update states value with new squares array
+    this.setState({squares: squares});
   }
+
+  //method to display text/value inside square box
+  renderSquare(i) {
+  //return DOM
+  //set value of Square element with i
+    return (
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
+  }
+
+
 
   render() {
     const status = 'Next player: X';
