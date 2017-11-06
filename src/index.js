@@ -27,6 +27,10 @@ class Board extends React.Component {
   handleClick(i) {
     //slice the squares array from broad's state
     const squares = this.state.squares.slice();
+    //if winner is declare or square is clicked before then disable to click.
+    if(calculateWinner(squares) || squares[i]){
+      return
+    }
     //define clicked/selected squares element with 'X'
     squares[i] = this.state.isNext ? 'X' : 'O';
     //update states value with new squares array and update isNext
@@ -55,7 +59,6 @@ class Board extends React.Component {
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
-
 
     return (
       <div>
