@@ -19,6 +19,7 @@ class Board extends React.Component {
     this.state = {
       //And each elements of squares array is null
       squares: Array(9).fill(null),
+      isNext: true,
     };
   }
 
@@ -27,9 +28,9 @@ class Board extends React.Component {
     //slice the squares array from broad's state
     const squares = this.state.squares.slice();
     //define clicked/selected squares element with 'X'
-    squares[i] = 'X';
+    squares[i] = this.state.isNext ? 'X' : 'O';
     //update states value with new squares array
-    this.setState({squares: squares}); //setState is to call modify the state
+    this.setState({squares: squares, isNext: !this.state.isNext}); //setState is to call modify the state
   }
 
   //method to display text/value inside square box
@@ -46,7 +47,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const status = 'Next player: X';
+    const status = 'Next player: ' + (this.state.isNext ? 'X' : 'O');
 
     return (
       <div>
