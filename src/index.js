@@ -76,6 +76,7 @@ class Game extends React.Component {
       squares: Array(9).fill(null),
     }],
     xIsNext: true,
+    stepNumber: 0,
     };
   }
 
@@ -96,6 +97,7 @@ class Game extends React.Component {
         squares: squares,
       }]),
       xIsNext: !this.state.xIsNext,
+      stepNumber: history.length,
     });
     //setState is to call modify the state
   }
@@ -107,10 +109,9 @@ class Game extends React.Component {
     });
   }
 
-
   render() {
     const history = this.state.history;
-    const current = history[history.length - 1];
+    const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
     const moves = history.map((step, move) => {
